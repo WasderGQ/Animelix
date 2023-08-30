@@ -1,3 +1,4 @@
+using System;
 using ApplicationPanels.__Common__;
 using ApplicationPanels._01_VideoPanel._10_VideoPlayer;
 using ApplicationPanels._01_VideoPanel._11_EpisodesList;
@@ -12,6 +13,11 @@ namespace ApplicationPanels._01_VideoPanel
         private void OnEnable()
         {
             _videoPlayerController.InIt();
+        }
+
+        private void OnDisable()
+        {
+            _videoPlayerController.OutIt();
         }
     }
 }

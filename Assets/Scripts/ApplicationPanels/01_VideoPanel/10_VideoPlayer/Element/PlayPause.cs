@@ -7,50 +7,49 @@ namespace ApplicationPanels._01_VideoPanel._10_VideoPlayer.Element
 {
     public class PlayPause : VideoPlayerButton
     {
-    
-        [field:SerializeField] protected override Sprite _trueImage {get;  set;}
-        [field:SerializeField] protected override Sprite _falseImage {get;  set;}
-        [field:SerializeField] protected override Button _myButton {get;  set;}
-        [field:SerializeField] protected override Image _image {get;  set;}
-        [field:SerializeField] protected bool _buttonStatus {get;  set;}
-
+        [SerializeField] private ProgressBar _progressBar;
+        [field:SerializeField] protected override Sprite _trueImage {get; set;}
+        [field:SerializeField] protected override Sprite _falseImage {get; set;}
+        [field:SerializeField] protected override Button _myButton {get; set;}
+        [field:SerializeField] protected override Image _image {get; set;}
+        [field:SerializeField] public override bool ButtonStatus { get; protected set; }
+        
         public override void InIt()
         {
-            AddListener(_myButton, OnClick);
-            OnClick();
+            base.AddListener(_myButton, OnClick);
         }
-    
-        protected override void AddListener(Button button, UnityAction OnClick)
+        public override void OutIt()
         {
-            button.onClick.AddListener(OnClick);
+            base.RemoveListener(_myButton, OnClick);
         }
-    
+       
         protected override void OnClick()
         {
-            if(!_buttonStatus)
+            if(!ButtonStatus)
             {
-                TrueStatus();
+                ChangeToTrueStatus();
             }
             else
             {
-                FalseStatus();
+                ChangeToFalseStatus();
             }
         }
     
-        protected override void TrueStatus()
+        public override void ChangeToTrueStatus()
         {
             _videoPlayer.Play();
             _image.sprite = _trueImage;
-            _buttonStatus = true;
+            ButtonStatus = true;
+            StartCoroutine(_progressBar.ProgressBarUpdate());
         }
-        protected virtual void FalseStatus()
+        public virtual void ChangeToFalseStatus()
         {
             _videoPlayer.Pause();
             _image.sprite = _falseImage;
-            _buttonStatus = false;
+            ButtonStatus = false;
         }
     
-    
+       
     
     }
 }

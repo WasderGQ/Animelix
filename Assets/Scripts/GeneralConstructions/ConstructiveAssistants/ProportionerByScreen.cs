@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 namespace GeneralConstructions.ConstructiveAssistants
 {
+#if UNITY_EDITOR
     [ExecuteInEditMode]
     [AddComponentMenu("UI/Screen Scaler")]
     [CustomEditor(typeof(ProportionerByScreen))] // Bu satırı ekleyin
     [RequireComponent(typeof(CanvasScaler), typeof(Canvas))]
+#endif
     public class ProportionerByScreen : MonoBehaviour
     {
         [SerializeField] private RectTransform _canvas;
@@ -97,13 +99,14 @@ namespace GeneralConstructions.ConstructiveAssistants
     }
 
 
-
+#if UNITY_EDITOR
 
     [CustomEditor(typeof(ProportionerByScreen))]
     public class ScreenScalerEditor : Editor
     {
+        
         private Texture2D icon;
-
+        
         private void OnEnable()
         {
             icon = AssetDatabase.LoadAssetAtPath<Texture2D>(
@@ -129,4 +132,5 @@ namespace GeneralConstructions.ConstructiveAssistants
             return icon;
         }
     }
+#endif
 }

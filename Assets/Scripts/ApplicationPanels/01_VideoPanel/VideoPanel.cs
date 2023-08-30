@@ -13,11 +13,13 @@ namespace ApplicationPanels._01_VideoPanel
         private void OnEnable()
         {
             _videoPlayerController.InIt();
+            Debug.Log("Application Panels: Video Panel InIt");
         }
 
         private void OnDisable()
         {
             _videoPlayerController.OutIt();
+            Debug.Log("Application Panels: Video Panel InIt");
         }
     }
 }

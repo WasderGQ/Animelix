@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 14630043}
   - component: {fileID: 14630045}
   m_Layer: 5
-  m_Name: 00_VideoPlayer
+  m_Name: 01_VideoPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: 115233251}
   - component: {fileID: 115233250}
   m_Layer: 5
-  m_Name: 0001_VideoArea
+  m_Name: 0101_VideoArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -384,7 +384,7 @@ VideoPlayer:
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: <noninit>
   m_RenderMode: 2
-  m_AspectRatio: 3
+  m_AspectRatio: 2
   m_DataSource: 0
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
@@ -964,7 +964,7 @@ GameObject:
   - component: {fileID: 495856743}
   - component: {fileID: 495856745}
   m_Layer: 5
-  m_Name: 01_EpisodeList
+  m_Name: 00_EpisodeList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1204,7 +1204,7 @@ RectTransform:
   m_GameObject: {fileID: 535672397}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7272727, y: 0.7272727, z: 0.7272727}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1146183307}
@@ -2034,7 +2034,7 @@ GameObject:
   - component: {fileID: 1074035518}
   - component: {fileID: 1074035519}
   m_Layer: 5
-  m_Name: 0002_Controller
+  m_Name: 0102_Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2076,7 +2076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebb44a640af46de41b227b323f5f0483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _videoPlayer: {fileID: 0}
+  _videoPlayer: {fileID: 115233250}
   _playPause: {fileID: 1082979009}
   _mute: {fileID: 1798846985}
   _fullScreen: {fileID: 2137583060}
@@ -2270,7 +2270,7 @@ GameObject:
   - component: {fileID: 1355752819}
   - component: {fileID: 1355752818}
   m_Layer: 5
-  m_Name: 0000_BackGround
+  m_Name: 0100_BackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2309,7 +2309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.18623175, g: 0.3142822, b: 0.4245283, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2363,8 +2363,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 14630043}
   - {fileID: 495856742}
+  - {fileID: 14630043}
   m_Father: {fileID: 407391497}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

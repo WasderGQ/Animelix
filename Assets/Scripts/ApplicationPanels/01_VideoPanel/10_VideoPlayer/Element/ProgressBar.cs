@@ -3,12 +3,13 @@ using System.Collections;
 using ApplicationPanels._01_VideoPanel._10_VideoPlayer.Element.__Common__;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using Image = UnityEngine.UI.Image;
 using Slider = UnityEngine.UI.Slider;
 
 namespace ApplicationPanels._01_VideoPanel._10_VideoPlayer.Element
 {
-    public class ProgressBar : VideoPlayerButton
+    public class ProgressBar : VideoPlayerButton ,IEndDragHandler,IBeginDragHandler
     {
         [SerializeField]private PlayPause _playPause;
         [field:SerializeField] protected override Sprite _trueImage { get; set; }
@@ -19,7 +20,6 @@ namespace ApplicationPanels._01_VideoPanel._10_VideoPlayer.Element
         
         public override void InIt()
         {
-            AddListener(_myButtonSlider, OnClick);
             SetSliderMaxValue((float)_videoPlayer.length);
             StartCoroutine(ProgressBarUpdate());
         }
@@ -28,34 +28,39 @@ namespace ApplicationPanels._01_VideoPanel._10_VideoPlayer.Element
         {
             _myButtonSlider.maxValue = videoTimeValue;
         }
-
-        private void Update()
+        private void OnDragEnd(float value)
         {
-            
-        }
-
-        private void AddListener(Slider slider, UnityAction<float> OnClick)
-        {
-            slider.onValueChanged.AddListener(OnClick);
-        }
-        private void OnClick(float value)
-        {
-            _videoPlayer.time = value;
+            if (ButtonStatus)
+            {
+                _videoPlayer.time = value;
+            }
         }
         public void ResetSlideBar()
         {
             _myButtonSlider.value = 0;
-            _videoPlayer.time = 0;
         }
         public IEnumerator ProgressBarUpdate()
         {
-            while(_playPause.ButtonStatus)
+            ButtonStatus = false;
+            while(_playPause.ButtonStatus && !ButtonStatus && _videoPlayer.time < _videoPlayer.length)
             {
+                yield return new WaitForSeconds(0.1f);
                 _myButtonSlider.value = (float)_videoPlayer.time;
-                yield return new WaitForSeconds(1f);
             }
             
             yield return null;
         }
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            OnDragEnd(eventData.pointerDrag.GetComponent<Slider>().value);
+            StartCoroutine(ProgressBarUpdate());
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            ButtonStatus = true;
+        }
+        
+        
     }
 }

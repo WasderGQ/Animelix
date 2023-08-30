@@ -31,18 +31,20 @@ namespace ApplicationPanels._01_VideoPanel._10_VideoPlayer
         
         private void AddListener()
         {
-            _videoPlayer.loopPointReached += OnLoopPointReached;
+            _videoPlayer.loopPointReached += OnVideoCompletion;
         }
         private void RemoveListener()
         {
-            _videoPlayer.loopPointReached += OnLoopPointReached;
+            _videoPlayer.loopPointReached -= OnVideoCompletion;
         }
         
-        private void OnLoopPointReached(VideoPlayer source)
+        private void OnVideoCompletion(VideoPlayer source)
         {
+            
             _progressBar.ResetSlideBar();
             if(_playPause.ButtonStatus)
                 _playPause.ChangeToFalseStatus();
+            _videoPlayer.time = 0;
         }
 
         

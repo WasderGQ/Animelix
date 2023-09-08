@@ -12,13 +12,13 @@ namespace ApplicationPanels._01_VideoPanel
         [SerializeField] private EpisodeListController _episodeList;
         private void OnEnable()
         {
-            _videoPlayerController.InIt();
+            //_videoPlayerController.InIt();
             Debug.Log("Application Panels: Video Panel InIt");
         }
 
         private void OnDisable()
         {
-            _videoPlayerController.OutIt();
+           // _videoPlayerController.OutIt();
             Debug.Log("Application Panels: Video Panel InIt");
         }
     }

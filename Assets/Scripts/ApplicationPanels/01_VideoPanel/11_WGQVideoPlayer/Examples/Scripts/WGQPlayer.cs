@@ -3,6 +3,7 @@ using System;
 using LibVLCSharp;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 ///This is a basic implementation of a media player using VLC for Unity using LibVLCSharp
 ///It exposes some basic playback controls, you may wish to add more of these
@@ -33,9 +34,8 @@ public class WGQPlayer : MonoBehaviour
 	public bool flipTextureX = true;
 	public bool flipTextureY = true;
 	public bool playOnAwake = true; //Open path and Play during Awake
-
+	public bool muteOnAwake = false; //Mute audio during Awake
 	public bool logToConsole = false; //Log function calls and LibVLC logs to Unity console
-
 	//Unity Awake, OnDestroy, and Update functions
 	#region unity
 	void Awake()
@@ -56,11 +56,13 @@ public class WGQPlayer : MonoBehaviour
 		//Play On Start
 		if (playOnAwake)
 			Open();
+		if(muteOnAwake)
+			SetVolumeOnOff(true);
 	}
 
 	void OnDestroy()
 	{
-		//Dispose of mediaPlayer, or it will stay in nemory and keep playing audio
+		//Dispose of mediaPlayer, or it will stay in memory and keep playing audio
 		DestroyMediaPlayer();
 	}
 
@@ -119,6 +121,7 @@ public class WGQPlayer : MonoBehaviour
 		Log("WGQPlayer Play");
 
 		mediaPlayer.Play();
+		
 	}
 
 	public void Pause()
@@ -148,7 +151,12 @@ public class WGQPlayer : MonoBehaviour
 		mediaPlayer.SetTime(time);
 	}
 
-	public void SetVolume(int volume = 100)
+	public void SetVolumeOnOff(bool mute)
+	{
+		Log("WGQPlayer SetVolume " + mute);
+		mediaPlayer.Mute = mute;
+	}
+	public void SetVolumeValue(int volume)
 	{
 		Log("WGQPlayer SetVolume " + volume);
 		mediaPlayer.SetVolume(volume);
@@ -178,7 +186,7 @@ public class WGQPlayer : MonoBehaviour
 	{
 		get
 		{
-			if (mediaPlayer == null || mediaPlayer.Media == null)
+			while (mediaPlayer == null || mediaPlayer.Media == null)
 				return 0;
 			return mediaPlayer.Media.Duration;
 		}
@@ -193,8 +201,18 @@ public class WGQPlayer : MonoBehaviour
 			return mediaPlayer.Time;
 		}
 	}
-    
 
+	public async Task<long> GetMediaDuration()
+	{
+		while (Duration == 0)
+		{
+			Task.Delay(100);
+		}
+
+		return Duration;
+	}
+	
+	
 	public List<MediaTrack> Tracks(TrackType type)
 	{
 		Log("WGQPlayer Tracks " + type);
